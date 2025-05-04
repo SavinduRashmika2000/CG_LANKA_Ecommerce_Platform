@@ -9,4 +9,9 @@ public class user {
     public String hellow(){
         return "hellow";
     }
+
+    @GetMapping("/contact")
+    public String contact(){
+        return "contact";
+    }
 }
