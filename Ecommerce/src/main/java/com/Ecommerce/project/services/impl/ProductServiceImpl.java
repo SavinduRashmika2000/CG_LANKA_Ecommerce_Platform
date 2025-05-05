@@ -15,11 +15,18 @@ public class ProductServiceImpl implements ProductService {
     private ProductRepository productRepository;
 
     @Override
-    public ProductModel createProduct(ProductModel product) {
+    public ProductModel createProduct( String title) {
+        ProductModel product =new ProductModel();
+        product.setTitle(title);
         return productRepository.save(product);
     }
 
     @Override
+    public List<ProductModel> getAllProducts() {
+        return productRepository.findAll();
+    }
+
+    /*@Override
     public ProductModel updateProduct(Long productId, ProductModel product) {
         ProductModel existing = productRepository.findById(productId)
                 .orElseThrow(() -> new RuntimeException("Product not found"));
@@ -43,10 +50,7 @@ public class ProductServiceImpl implements ProductService {
         productRepository.deleteById(productId);
     }
 
-    @Override
-    public List<ProductModel> getAllProducts() {
-        return productRepository.findAll();
-    }
+
 
     @Override
     public ProductModel getProductById(Long productId) {
@@ -58,4 +62,6 @@ public class ProductServiceImpl implements ProductService {
     public List<ProductModel> searchProducts(String keyword) {
         return productRepository.findByTitleContaining(keyword);
     }
+
+     */
 }
