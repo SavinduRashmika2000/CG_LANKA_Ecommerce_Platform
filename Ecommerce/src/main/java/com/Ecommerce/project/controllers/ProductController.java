@@ -18,30 +18,27 @@ public class ProductController {
 
     // Create a new product
     @PostMapping
-    public ProductModel createProduct(@RequestBody String title) {
-       return productService.createProduct(title);
+    public ProductModel createProduct(@RequestBody ProductModel product) {
+       return productService.createProduct(product);
     }
 
     @GetMapping
     public List<ProductModel> getAllProducts() {
         return  productService.getAllProducts();
     }
-   /*
+
     // Update an existing product
     @PutMapping("/{id}")
-    public ResponseEntity<ProductModel> updateProduct(
-            @PathVariable Long id,
-            @RequestBody ProductModel product
-    ) {
-        ProductModel updatedProduct = productService.updateProduct(id, product);
-        return ResponseEntity.ok(updatedProduct);
+    public ProductModel updateProduct(@PathVariable Long id, @RequestBody ProductModel product) {
+        return productService.updateProduct(id, product);
     }
+
 
     // Delete a product by ID
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
-        productService.deleteProduct(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<ProductModel> deleteProduct(@PathVariable Long id) {
+        ProductModel product= productService.deleteProduct(id);
+        return ResponseEntity.ok(product);
     }
 
     // Get all products
@@ -100,5 +97,5 @@ public class ProductController {
         return ResponseEntity.ok(createdProduct);
     }
 
-    */
+
 }

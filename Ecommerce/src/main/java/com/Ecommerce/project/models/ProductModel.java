@@ -11,18 +11,20 @@ public class ProductModel {
     private Long pid;
 
     private String title;
-    //private String gender;
-    //private String type;
-    //private int price;
-    //private String description;
+    private String gender;
+    private String type;
+    private int price;
 
     // Fixed 5 image URLs
-   /* private String image1;
+    private String image1;
     private String image2;
     private String image3;
     private String image4;
     private String image5;
 
-    */
+    @Lob
+    private String description;
+
+
 
 }

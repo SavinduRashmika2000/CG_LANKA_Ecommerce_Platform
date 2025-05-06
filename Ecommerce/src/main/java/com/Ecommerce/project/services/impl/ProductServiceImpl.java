@@ -15,39 +15,44 @@ public class ProductServiceImpl implements ProductService {
     private ProductRepository productRepository;
 
     @Override
-    public ProductModel createProduct( String title) {
-        ProductModel product =new ProductModel();
-        product.setTitle(title);
+    public ProductModel createProduct(ProductModel product) {
         return productRepository.save(product);
     }
+
 
     @Override
     public List<ProductModel> getAllProducts() {
         return productRepository.findAll();
     }
 
-    /*@Override
+
     public ProductModel updateProduct(Long productId, ProductModel product) {
         ProductModel existing = productRepository.findById(productId)
                 .orElseThrow(() -> new RuntimeException("Product not found"));
 
-        existing.setTitle(product.getTitle());
-        existing.setGender(product.getGender());
-        existing.setType(product.getType());
-        existing.setPrice(product.getPrice());
-        existing.setDescription(product.getDescription());
-        existing.setImage1(product.getImage1());
-        existing.setImage2(product.getImage2());
-        existing.setImage3(product.getImage3());
-        existing.setImage4(product.getImage4());
-        existing.setImage5(product.getImage5());
+        if (product.getTitle() != null) existing.setTitle(product.getTitle());
+        if (product.getGender() != null) existing.setGender(product.getGender());
+        if (product.getType() != null) existing.setType(product.getType());
+        if (product.getPrice() != 0) existing.setPrice(product.getPrice());
+        if (product.getDescription() != null) existing.setDescription(product.getDescription());
+
+        if (product.getImage1() != null) existing.setImage1(product.getImage1());
+        if (product.getImage2() != null) existing.setImage2(product.getImage2());
+        if (product.getImage3() != null) existing.setImage3(product.getImage3());
+        if (product.getImage4() != null) existing.setImage4(product.getImage4());
+        if (product.getImage5() != null) existing.setImage5(product.getImage5());
 
         return productRepository.save(existing);
     }
 
+
     @Override
-    public void deleteProduct(Long productId) {
+    public ProductModel deleteProduct(Long productId) {
+        ProductModel existing = productRepository.findById(productId)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
         productRepository.deleteById(productId);
+        return (existing);
+
     }
 
 
@@ -63,5 +68,5 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findByTitleContaining(keyword);
     }
 
-     */
+
 }
