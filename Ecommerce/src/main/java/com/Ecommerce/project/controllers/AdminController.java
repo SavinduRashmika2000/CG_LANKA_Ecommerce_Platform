@@ -1,16 +1,40 @@
 package com.Ecommerce.project.controllers;
 
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.Ecommerce.project.dtos.UserDTO;
+import com.Ecommerce.project.models.User;
+import com.Ecommerce.project.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("/api/admin")
 public class AdminController {
 
-    @GetMapping("/only")
-    public String adminOnly() {
-        return "Welcome, Admin!";
+    @Autowired
+    UserService userService;
+
+    @GetMapping("/getusers")
+    public ResponseEntity<List<User>> getAllUsers() {
+        return new ResponseEntity<>(userService.getAllUsers(),
+                HttpStatus.OK);
     }
+
+    @PutMapping("/update-role")
+    public ResponseEntity<String> updateUserRole(@RequestParam Long userId, 
+                                                 @RequestParam String roleName) {
+        userService.updateUserRole(userId, roleName);
+        return ResponseEntity.ok("User role updated");
+    }
+
+    @GetMapping("/user/{id}")
+    public ResponseEntity< UserDTO> getUser(@PathVariable Long id) {
+        return new ResponseEntity<>(userService.getUserById(id),
+                HttpStatus.OK);
+    }
+
+
 }
